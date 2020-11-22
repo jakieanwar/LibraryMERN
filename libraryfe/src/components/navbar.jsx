@@ -1,9 +1,26 @@
 import React, { Component } from "react";
+import jwtDecode from "jwt-decode";
 
 class NavBar extends Component {
   state = {
     active: "Home",
+    user: {}
   };
+
+  componentDidMount() {
+    console.log(this.state.user.email == null)
+    try {
+      const jwt = localStorage.getItem("auth-token");
+      const user = jwtDecode(jwt);
+      this.setState({ user });
+    } catch (ex) {}
+  }
+
+  onLogOut() {
+    localStorage.removeItem("auth-token");
+    window.location = "/";
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -32,16 +49,28 @@ class NavBar extends Component {
                     Books
                   </a>
                 </li>
-                <li className="nav-item" style={{ marginLeft: "75vh" }}>
-                  <a className="nav-link" href="/login">
-                    Login
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="/register">
-                    Register
-                  </a>
-                </li>
+                { (this.state.user.email == null) && <React.Fragment>
+                  <li className="nav-item" style={{ marginLeft: "75vh" }}>
+                    <a className="nav-link" href="/login">
+                      Login
+                    </a>
+                  </li>
+                  <li className="nav-item">
+                    <a className="nav-link" href="/register">
+                      Register
+                    </a>
+                  </li>
+                </React.Fragment>}
+                {(this.state.user.email != null) && <React.Fragment>
+                  <li className="nav-item nav-link" style={{ marginLeft: "55vh" }}>
+                    {this.state.user.email}
+                  </li>
+                  <li className="nav-item">
+                    <a className="nav-link" href="/" onClick={this.onLogOut}>
+                      Logout
+                    </a>
+                  </li>
+                </React.Fragment>}
               </ul>
             </div>
           </div>

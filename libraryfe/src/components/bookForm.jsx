@@ -16,14 +16,24 @@ class BookForm extends Component {
       await axios
         .patch(
           "http://localhost:9000/library/books/" + this.props.match.params.id,
-          this.state.book
+          this.state.book,
+          {
+            "headers":{
+              "x-auth-token":localStorage.getItem("auth-token")
+            }
+          }
         )
         .then((res) => {
           console.log("Book Updated");
         });
     } else {
       await axios
-        .post("http://localhost:9000/library/books", this.state.book)
+        .post("http://localhost:9000/library/books", this.state.book,
+        {
+          "headers":{
+            "x-auth-token":localStorage.getItem("auth-token")
+          }
+        })
         .then((res) => {
           alert("Book saved!!");
           console.log(res.status);
@@ -40,7 +50,12 @@ class BookForm extends Component {
 
   async componentDidMount() {
     await axios
-      .get("http://localhost:9000/library/books/" + this.props.match.params.id)
+      .get("http://localhost:9000/library/books/" + this.props.match.params.id,
+      {
+        "headers":{
+          "x-auth-token": localStorage.getItem("auth-token")
+        }
+      })
       .then((res) => {
         const book = {
           name: res.data.name,

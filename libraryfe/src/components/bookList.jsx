@@ -8,7 +8,11 @@ class BookList extends Component {
   };
 
   async componentDidMount() {
-    await axios.get("http://localhost:9000/library/books").then((res) => {
+    await axios.get("http://localhost:9000/library/books", {
+      "headers":{
+        "x-auth-token": localStorage.getItem("auth-token")
+      }
+    }).then((res) => {
       const books = res.data;
       this.setState({ books });
     });

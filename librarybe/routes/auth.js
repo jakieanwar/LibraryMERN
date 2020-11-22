@@ -36,6 +36,7 @@ router.post("/", async (req, res) => {
   );
   return res
     .header("x-auth-token", token)
+    .header("access-control-expose-headers", "x-auth-token")
     .json({ status: "Success", email: user.email });
 });
 

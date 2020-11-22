@@ -8,7 +8,11 @@ class BookListItem extends Component {
 
   onDeleteBook = async () => {
     await axios
-      .delete(`http://localhost:9000/library/books/${this.state.book._id}`)
+      .delete(`http://localhost:9000/library/books/${this.state.book._id}`, {
+        "headers":{
+          "x-auth-token": localStorage.getItem("auth-token")
+        }
+      })
       .then(() => {
         console.log("Deleted");
       });

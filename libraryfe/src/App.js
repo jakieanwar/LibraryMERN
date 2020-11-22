@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-
 import NavBar from "./components/navbar";
 import BookForm from "./components/bookForm";
 import BookList from "./components/bookList";
+import UserForm from "./components/userForm"
 
 class App extends Component {
   state = {
@@ -26,6 +26,8 @@ class App extends Component {
             path="/books/edit/:id"
             render={(props) => <BookForm {...props} pageMode="Edit" />}
           />
+          <Route exact path="/login" render={(props) => <UserForm {...props} mode="Login" />}/>
+          <Route exact path="/register" render={(props) => <UserForm {...props} mode="Register" />}/>
         </div>
       </Router>
     );
