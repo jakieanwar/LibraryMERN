@@ -15,7 +15,7 @@ class BookForm extends Component {
     if (this.props.pageMode === "Edit") {
       await axios
         .patch(
-          "http://localhost:9000/library/books/" + this.props.match.params.id,
+          `${process.env.BE_URL}/library/books/` + this.props.match.params.id,
           this.state.book,
           {
             "headers":{
@@ -28,7 +28,7 @@ class BookForm extends Component {
         });
     } else {
       await axios
-        .post("http://localhost:9000/library/books", this.state.book,
+        .post(`${process.env.BE_URL}/library/books`, this.state.book,
         {
           "headers":{
             "x-auth-token":localStorage.getItem("auth-token")
@@ -50,7 +50,7 @@ class BookForm extends Component {
 
   async componentDidMount() {
     await axios
-      .get("http://localhost:9000/library/books/" + this.props.match.params.id,
+      .get(`${process.env.BE_URL}/library/books/` + this.props.match.params.id,
       {
         "headers":{
           "x-auth-token": localStorage.getItem("auth-token")

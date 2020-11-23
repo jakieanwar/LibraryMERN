@@ -9,7 +9,7 @@ class BookList extends Component {
   };
 
   async componentDidMount() {
-    await axios.get("http://localhost:9000/library/books", {
+    await axios.get(`${process.env.BE_URL}/library/books`, {
       "headers":{
         "x-auth-token": localStorage.getItem("auth-token")
       }

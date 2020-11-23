@@ -16,7 +16,7 @@ class UserForm extends Component {
     if (this.props.mode === "Login") {
       await axios
         .post(
-          "http://localhost:9000/library/users/auth",
+          `${process.env.BE_URL}/library/users/auth`,
           _.pick(this.state.user, ["email", "password"])
         )
         .then((res) => {
@@ -32,7 +32,7 @@ class UserForm extends Component {
             this.setState({ user });
         }
       await axios
-        .post("http://localhost:9000/library/users", this.state.user)
+        .post(`${process.env.BE_URL}/library/users`, this.state.user)
         .then((res) => {
           alert("User registered");
         });
