@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import jwtDecode from "jwt-decode";
 
 class BookListItem extends Component {
   state = {
@@ -19,12 +20,18 @@ class BookListItem extends Component {
   };
 
   render() {
+    let user = null;
+    if(localStorage.getItem("auth-token")){
+      const jwt = localStorage.getItem("auth-token");
+      user = jwtDecode(jwt);
+    }
+
     return (
       <tr>
         <td>{this.state.book.name}</td>
         <td>{this.state.book.author}</td>
         <td>{this.state.book.price}</td>
-        <td>
+        {(user.role === "admin") && (<React.Fragment><td>
           <a
             className="btn btn-primary"
             href={"/books/edit/" + this.state.book._id}
@@ -42,7 +49,7 @@ class BookListItem extends Component {
           >
             Delete
           </a>
-        </td>
+        </td></React.Fragment>)}
       </tr>
     );
   }

@@ -22,6 +22,12 @@ class NavBar extends Component {
   }
 
   render() {
+    let user = null;
+    if(localStorage.getItem("auth-token")){
+      const jwt = localStorage.getItem("auth-token");
+      user = jwtDecode(jwt);
+    }
+
     return (
       <React.Fragment>
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -39,16 +45,16 @@ class NavBar extends Component {
                     Home <span className="sr-only">(current)</span>
                   </a>
                 </li>
-                <li className="nav-item">
+                {(user) && (user.role === "admin") && (<React.Fragment><li className="nav-item">
                   <a className="nav-link" href="/addBook">
                     Add Book
                   </a>
-                </li>
-                <li className="nav-item">
+                </li></React.Fragment>)}
+                {(user) && (<React.Fragment><li className="nav-item">
                   <a className="nav-link" href="/books">
                     Books
                   </a>
-                </li>
+                </li></React.Fragment>)}
                 { (this.state.user.email == null) && <React.Fragment>
                   <li className="nav-item" style={{ marginLeft: "75vh" }}>
                     <a className="nav-link" href="/login">
