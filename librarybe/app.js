@@ -24,6 +24,6 @@ app.use("/library/users", usersRouter);
 const authRouter = require("./routes/auth");
 app.use("/library/users/auth", authRouter);
 
-app.listen(9000, () => {
+app.listen(process.env.PORT || 9000, () => {
   console.log("Server started on port 9000");
 });

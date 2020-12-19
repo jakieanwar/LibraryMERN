@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from "axios";
+import axios from "../axios";
 
 class BookForm extends Component {
   state = {
@@ -13,14 +13,15 @@ class BookForm extends Component {
   onBookSubmit = async (e) => {
     e.preventDefault();
     if (this.props.pageMode === "Edit") {
+      console.log(axios);
       await axios
         .patch(
-          `${process.env.BE_URL}/library/books/` + this.props.match.params.id,
+          "/library/books/" + this.props.match.params.id,
           this.state.book,
           {
-            "headers":{
-              "x-auth-token":localStorage.getItem("auth-token")
-            }
+            headers: {
+              "x-auth-token": localStorage.getItem("auth-token"),
+            },
           }
         )
         .then((res) => {
@@ -28,11 +29,10 @@ class BookForm extends Component {
         });
     } else {
       await axios
-        .post(`${process.env.BE_URL}/library/books`, this.state.book,
-        {
-          "headers":{
-            "x-auth-token":localStorage.getItem("auth-token")
-          }
+        .post(`/library/books`, this.state.book, {
+          headers: {
+            "x-auth-token": localStorage.getItem("auth-token"),
+          },
         })
         .then((res) => {
           alert("Book saved!!");
@@ -50,11 +50,10 @@ class BookForm extends Component {
 
   async componentDidMount() {
     await axios
-      .get(`${process.env.BE_URL}/library/books/` + this.props.match.params.id,
-      {
-        "headers":{
-          "x-auth-token": localStorage.getItem("auth-token")
-        }
+      .get(`/library/books/` + this.props.match.params.id, {
+        headers: {
+          "x-auth-token": localStorage.getItem("auth-token"),
+        },
       })
       .then((res) => {
         const book = {

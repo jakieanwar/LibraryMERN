@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from "axios";
+import axios from "../axios";
 import jwtDecode from "jwt-decode";
 import BookListItem from "./bookListItem";
 
@@ -9,23 +9,25 @@ class BookList extends Component {
   };
 
   async componentDidMount() {
-    await axios.get(`${process.env.BE_URL}/library/books`, {
-      "headers":{
-        "x-auth-token": localStorage.getItem("auth-token")
-      }
-    }).then((res) => {
-      const books = res.data;
-      this.setState({ books });
-    });
+    await axios
+      .get(`/library/books`, {
+        headers: {
+          "x-auth-token": localStorage.getItem("auth-token"),
+        },
+      })
+      .then((res) => {
+        const books = res.data;
+        this.setState({ books });
+      });
   }
 
   render() {
     let user = null;
-    if(localStorage.getItem("auth-token")){
+    if (localStorage.getItem("auth-token")) {
       const jwt = localStorage.getItem("auth-token");
       user = jwtDecode(jwt);
     }
-    
+
     return (
       <React.Fragment>
         <h1>All Books</h1>
@@ -35,8 +37,17 @@ class BookList extends Component {
               <th scope="col">Name</th>
               <th scope="col">Author</th>
               <th scope="col">Price</th>
-              {(user.role === "admin") && (<React.Fragment><th scope="col"></th>
-              <th scope="col"></th></React.Fragment>)}
+              {user.role === "admin" && (
+                <React.Fragment>
+                  <th scope="col"></th>
+                  <th scope="col"></th>
+                </React.Fragment>
+              )}
+              {user.role === "user" && (
+                <React.Fragment>
+                  <th scope="col"></th>
+                </React.Fragment>
+              )}
             </tr>
           </thead>
           <tbody>

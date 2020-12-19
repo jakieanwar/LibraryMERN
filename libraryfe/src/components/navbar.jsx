@@ -4,11 +4,10 @@ import jwtDecode from "jwt-decode";
 class NavBar extends Component {
   state = {
     active: "Home",
-    user: {}
+    user: {},
   };
 
   componentDidMount() {
-    console.log(this.state.user.email == null)
     try {
       const jwt = localStorage.getItem("auth-token");
       const user = jwtDecode(jwt);
@@ -23,7 +22,7 @@ class NavBar extends Component {
 
   render() {
     let user = null;
-    if(localStorage.getItem("auth-token")){
+    if (localStorage.getItem("auth-token")) {
       const jwt = localStorage.getItem("auth-token");
       user = jwtDecode(jwt);
     }
@@ -45,38 +44,53 @@ class NavBar extends Component {
                     Home <span className="sr-only">(current)</span>
                   </a>
                 </li>
-                {(user) && (user.role === "admin") && (<React.Fragment><li className="nav-item">
-                  <a className="nav-link" href="/addBook">
-                    Add Book
-                  </a>
-                </li></React.Fragment>)}
-                {(user) && (<React.Fragment><li className="nav-item">
-                  <a className="nav-link" href="/books">
-                    Books
-                  </a>
-                </li></React.Fragment>)}
-                { (this.state.user.email == null) && <React.Fragment>
-                  <li className="nav-item" style={{ marginLeft: "75vh" }}>
-                    <a className="nav-link" href="/login">
-                      Login
-                    </a>
-                  </li>
-                  <li className="nav-item">
-                    <a className="nav-link" href="/register">
-                      Register
-                    </a>
-                  </li>
-                </React.Fragment>}
-                {(this.state.user.email != null) && <React.Fragment>
-                  <li className="nav-item nav-link" style={{ marginLeft: "55vh" }}>
-                    {this.state.user.email}
-                  </li>
-                  <li className="nav-item">
-                    <a className="nav-link" href="/" onClick={this.onLogOut}>
-                      Logout
-                    </a>
-                  </li>
-                </React.Fragment>}
+                {user && user.role === "admin" && (
+                  <React.Fragment>
+                    <li className="nav-item">
+                      <a className="nav-link" href="/addBook">
+                        Add Book
+                      </a>
+                    </li>
+                  </React.Fragment>
+                )}
+                {user && (
+                  <React.Fragment>
+                    <li className="nav-item">
+                      <a className="nav-link" href="/books">
+                        Books
+                      </a>
+                    </li>
+                  </React.Fragment>
+                )}
+                {this.state.user.email == null && (
+                  <React.Fragment>
+                    <li className="nav-item" style={{ marginLeft: "75vh" }}>
+                      <a className="nav-link" href="/login">
+                        Login
+                      </a>
+                    </li>
+                    <li className="nav-item">
+                      <a className="nav-link" href="/register">
+                        Register
+                      </a>
+                    </li>
+                  </React.Fragment>
+                )}
+                {this.state.user.email != null && (
+                  <React.Fragment>
+                    <li
+                      className="nav-item nav-link"
+                      style={{ marginLeft: "55vh" }}
+                    >
+                      {this.state.user.email}
+                    </li>
+                    <li className="nav-item">
+                      <a className="nav-link" href="/" onClick={this.onLogOut}>
+                        Logout
+                      </a>
+                    </li>
+                  </React.Fragment>
+                )}
               </ul>
             </div>
           </div>
