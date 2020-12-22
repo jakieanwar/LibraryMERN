@@ -1,0 +1,331 @@
+{
+	"info": {
+		"_postman_id": "bac4728f-29fd-4e7d-93b7-2e09d315d615",
+		"name": "Library",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GetAllBooks",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Impha2llQGdtYWlsLmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjA2MzcyMzg0fQ.c4xzdC2X3UFmkDLepJa02fSvgVrND91T1SGKwCx5Vmw",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:9000/library/books",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"library",
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddBook",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Boku No Hero\",\r\n    \"author\": \"Stephen Hawking\",\r\n    \"price\": 449\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:9000/library/books",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"library",
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Book Details",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "x-auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsYmVydEBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2MDYzNzMyMzF9.xNU758Z3eCzenFKZSvYpPRmJnxduHpBsD8ED7XIYFx0",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\" : \"Haikyuu\",\r\n    \"author\": \"Anime\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:9000/library/books/5f7c7bae37b8e322400d62af",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"library",
+						"books",
+						"5f7c7bae37b8e322400d62af"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Book",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "x-auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsYmVydEBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2MDYzNzMyMzF9.xNU758Z3eCzenFKZSvYpPRmJnxduHpBsD8ED7XIYFx0",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:9000/library/books/abcd",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"library",
+						"books",
+						"abcd"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SearchBook",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:9000/library/books/search?name=Haikyuu",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"library",
+						"books",
+						"search"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Haikyuu"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Issue/Return Book",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsYmVydEBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2MDYzODk3OTB9.7RCHQXoJPUGNf3YzQ6MV-vvXI5Mh9o61_8MhB6iL6Zw",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:9000/library/books/:id",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"library",
+						"books",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "5fbfadfec2ff422304416c3e",
+							"description": "Transaction ID"
+						}
+					]
+				},
+				"description": "Issue/Return Book"
+			},
+			"response": []
+		},
+		{
+			"name": "SearchById",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsYmVydEBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2MDYwNTk2NzR9.CGDGGUAwL2KfdE_8fVKkmUAmJpe_2Pab3v-8AP8UA3E",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:9000/library/books/5f3946103e6b232ee4d712fe",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"library",
+						"books",
+						"5f3946103e6b232ee4d712fe"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sign Up",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"admin@gmail.com\",\r\n    \"password\": \"adminpass\",\r\n    \"role\": \"admin\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:9000/library/users",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"library",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"albert@gmail.com\",\r\n    \"password\": \"Relativity\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:9000/library/users/auth",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"library",
+						"users",
+						"auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Issue Request",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Impha2llQGdtYWlsLmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjA2Mzg4NDU5fQ.PbCW_lesTKNNHHmL_FsHJKa5otkijqEjin3KkyzOx6w",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:9000/library/books/issue/:id",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"library",
+						"books",
+						"issue",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "5fbfc36e8a2c2f25405a51a9",
+							"description": "Book ID"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Fetch Issue Requests",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsYmVydEBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2MDYzODk3OTB9.7RCHQXoJPUGNf3YzQ6MV-vvXI5Mh9o61_8MhB6iL6Zw",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:9000/library/books/issue",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"library",
+						"books",
+						"issue"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

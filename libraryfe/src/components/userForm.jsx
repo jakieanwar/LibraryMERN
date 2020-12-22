@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from "axios";
+import axios from "../axios";
 import _ from "lodash";
 
 class UserForm extends Component {
@@ -16,27 +16,24 @@ class UserForm extends Component {
     if (this.props.mode === "Login") {
       await axios
         .post(
-          `${process.env.BE_URL}/library/users/auth`,
+          `/library/users/auth`,
           _.pick(this.state.user, ["email", "password"])
         )
         .then((res) => {
           console.log("Logged in");
           localStorage.setItem("auth-token", res.headers["x-auth-token"]);
         });
-        window.location = "/"
+      window.location = "/";
     } else {
-        if (this.state.user.role !== "admin")
-        {
-            const user = { ...this.state.user };
-            this.state.user.role = "user";
-            this.setState({ user });
-        }
-      await axios
-        .post(`${process.env.BE_URL}/library/users`, this.state.user)
-        .then((res) => {
-          alert("User registered");
-        });
-        this.props.history.push("/login");
+      if (this.state.user.role !== "admin") {
+        const user = { ...this.state.user };
+        this.state.user.role = "user";
+        this.setState({ user });
+      }
+      await axios.post(`/library/users`, this.state.user).then((res) => {
+        alert("User registered");
+      });
+      this.props.history.push("/login");
     }
     // this.props.history.push("/books");
   };
